@@ -1,0 +1,745 @@
+/* guia de jon para reutilizar codigo */
+/* custom properties */
+:root {
+  --first-color: hsl(333, 100%, 43%);
+  --first-alpha-color: rgba(217, 0, 98, 0.75);
+  --second-color: #14192d;
+  --third-color: #501464;
+  --link-color: #509ee3;
+  --white-color: #ffffff;
+  --gray-light-color: #f3f3f3;
+  --black-alpha-color: rgba(0, 0, 0, 0.5);
+  --white-alpha-color: rgba(255, 255, 255, 0.5);
+  --font: "Raleway", "Sans-serif";
+  --max-width: 1200px;
+  --header-height: 4rem;
+}
+/* reset= reseteo */
+html {
+  box-sizing: border-box;
+  font-family: var(--font);
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--link-color);
+  transition: all 0.5s ease-out;
+}
+
+a:hover {
+  opacity: 0.75;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+h5 {
+  margin: 0;
+  font-size: 0.85rem;
+}
+h6 {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+p {
+  line-height: 1.6;
+}
+
+/* componentes */
+
+/* CAROUSEL de los clientes*/
+.carousel {
+  margin: 2rem auto;
+  padding: 2rem 0;
+  max-width: 800px;
+  text-align: center;
+  background-color: var(--carousel-bg-color);
+  overflow-x: hidden; /*no se desbordara en horizontal en la barra del navegador igual que el body*/
+}
+/* para que desaparezca los circulos */
+.carousel input {
+  display: none;
+}
+
+.carousel label {
+  border: medium solid var(--gray-light-color); /*es para forma a los circulos abajo de la imgs*/
+  border-radius: 50%;
+  margin: 0.25rem;
+  display: inline-block; /*label trabajan en linea para que se ponga uno al lado del otro en bloque y estan vacias por eso el ancho y el alto*/
+  width: 0.75rem;
+  height: 0.75rem;
+  cursor: pointer;
+}
+
+/* ahaora vamos a poner en horizontarl cada img en el carrusel */
+.carousel .slides {
+  /* por cada slide se suba 100% al ancho como son 4=a 400% el flex de abajo
+  al ponerle el ancho hara que se corra en horizotall cada img pero primero que nada esta en filas */
+  width: 400%;
+  display: flex;
+  list-style: none;
+  transition: transform 0.5s ease-in-out; /*toda la ul se movera con una transicion sobre la ppiadad 
+  transform para usar la funcion translate para que se muevan en el eje x*/
+  padding-left: 0; /*este centrara el margen de la izq de todas las imag en el carrusel
+  xq tiene el espaciado de la bullet por eso se le debe quitar con este padding en 0 ojo*/
+}
+/* ahora vamos con los id de cada imag del carousel como son 4 se / 100/4 da 25 a cada 25%
+se va a rodar en este caso por rodar a la izq sus valores va en negativos ojo 
+~ hace que mueva el hermano que tenga al lado */
+#slide-1:checked ~ .slides {
+  transform: translateX(0%);
+}
+#slide-2:checked ~ .slides {
+  transform: translateX(-25%);
+}
+#slide-3:checked ~ .slides {
+  transform: translateX(-50%);
+}
+#slide-4:checked ~ .slides {
+  transform: translateX(-75%);
+}
+
+/*vamos a darle color al circulo cuadno le den checked*/
+#slide-1:checked ~ .slides-nav label#dot-1,
+#slide-2:checked ~ .slides-nav label#dot-2,
+#slide-3:checked ~ .slides-nav label#dot-3,
+#slide-4:checked ~ .slides-nav label#dot-4 {
+  background-color: var(--first-color);
+}
+/* contact form todo esto es para el FORMULARIO y se puede reutilizar 
+primero hago la caja de fondo con las dimensiones de abajo*/
+.contact-form {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 800px;
+}
+
+/* imput trabajan en linea, ahroa a todos los hijos directos del formulario 
+usamos * selector universal */
+.contact-form > * {
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block; /*cambio de linea a bloque los imputs y se bajen uno debajo del otro*/
+  width: 100%;
+}
+
+/* todos los imputs y las txtareas se cambia a la misma fuente de letra con la var font 
+deentro del formulario */
+.contact-form input,
+.contact-form textarea {
+  font-size: 0.85rem;
+  font-family: var(--font);
+}
+
+.contact-form input {
+  border: 0;
+  padding-left: 0; /*pega los ingresa a la izq sin margenes*/
+  border-bottom: thin solid black;
+}
+
+.contact-form textarea {
+  border: thin solid black;
+  resize: none; /*quito con esto el triangulo de tamaño en los comentarios*/
+}
+
+/* ahora a los estilos que btn envia msj el formulario que es un imput de tipo submit */
+.contact-form input[type="submit"] {
+  margin-top: 0;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+.contact-form input[type="submit"]:hover {
+  opacity: 0.75;
+}
+/* estilos a los placeholder tenga la pseudoclase placeholder asi la lllamo le cambie la letra*/
+.contact-form *::placeholder {
+  color: var(--first-color);
+}
+
+/* ahora la ventana modal..esto es cuando hagan su llamado en la barra 
+por el id gracias se llama*/
+.modal#gracias:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* selector contact-form-response esto y svg es para la ventana modal de las gracias por sus comentarios*/
+.contact-form-response {
+  padding: 1rem;
+  width: 400px;
+  text-align: center;
+  background-color: white;
+}
+
+/* estilos al svg de la carita feliz */
+.contact-form-response svg {
+  margin-top: 2rem;
+  width: 4rem;
+  height: 4rem;
+  fill: var(--first-color);
+}
+
+/* va esto para hacer el formurlario responsivo para pc */
+@media screen and (min-width: 1024px) {
+  .contact-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1rem; /*para separar nombre de email la linea*/
+  }
+  /* subo el tamaño de letra */
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 1rem;
+  }
+  /* aumento el textarea a dos espacios en columnas y quede debajo de name y email a los lados y baje el boton tambien este a dos span de espacio*/
+  .contact-form textarea,
+  .contact-form-loader {
+    grid-column: span 2;
+  }
+  /* esto seria para que el btn de enviar msj se pegue sin margenes a la izq del formulario */
+  .contact-form input[type="submit"] {
+    margin-left: 0;
+  }
+}
+
+/* Hero-Image */
+.hero-image {
+  background-image: var(--hero-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: var(--hero-attachment);
+}
+
+.hero-image-opacity {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--opacity-color);
+}
+
+.hero-image-title {
+  font-size: 7.5vw;
+  color: var(--color);
+}
+
+/* menu */
+
+.menu.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu a:hover {
+  color: white;
+  background-color: var(--first-color);
+}
+
+.menu a {
+  /*el menu tienen enlances */
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: var(--first-color);
+}
+
+.menu-btn svg {
+  fill: var(--first-color);
+}
+
+.menu-btn {
+  outline: thin solid var(--first-color);
+  border: 0;
+  cursor: pointer;
+  background-color: var(--second-color);
+}
+
+.menu {
+  position: fixed;
+  left: 0;
+  bottom: var(--header-height);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--second-color);
+  /* eso es para que el menu desaparezca estando en toda la pantalla */
+  opacity: 0;
+  pointer-events: none;
+  /* este pointer es para desaparecer la interccion del cursonr que salle por el menu de arriba */
+  transition: opacity 0.5s ease;
+}
+
+/*ESTO VA DE  ULTIMO POR LA CASCADA PARA QUE SIRVA EL MENU DE LA PCO JO*/
+@media screen and (min-width: 1024px) {
+  .menu-btn {
+    display: none; /*se quite en modo pc el menu hamburguesa*/
+  }
+  .menu {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    width: auto;
+    flex-direction: row;
+  }
+  .menu a {
+    padding: 0 1rem;
+  }
+  .menu a:last-child {
+    padding-right: 0;
+  }
+  .menu a:hover {
+    background-color: transparent;
+  }
+}
+
+/*MODAL OJO ES LA VENTANA MODAL DE LA PARTE TRABAJOS*/
+.modal {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex; /*esto hara que centre solo x y las palabras de la ventana*/
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-alpha-color);
+  opacity: 0; /*esto sirve en el momento que se carga la ventana con TARGET*/
+  pointer-events: none;
+  transition: all 1s;
+}
+.modal-content {
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.modal-close svg {
+  width: 3rem;
+  height: 3rem;
+  fill: var(--first-color);
+}
+
+/* para abrir la VENTANA MODAL es asi
+.modal#trabajo-1:target {*/
+.modal[id|="trabajo"]:target {
+  opacity: 1; /*esto sirve en el momento que se carga la ventana con TARGET de la pag se cambia de 0 a 1 y cambia de none a auto por el click*/
+  pointer-events: auto;
+}
+
+/*expresion regular es algo mas avanzado de css con los selectores de atributo  .modal[id|="trabajo"]:target{ se va app la opacity y el auto
+  con este | simbolo todo lo que tenga idtrabajo se activara tambien la ventana modal si existe en html su clase-svg-h3- btn
+  lo que hace buscar en la clss modal todos sus elemetnos y su id sea trabajo y aparte este en el targer de la pagp pra enternder mejor para no escribir mucho codigo */
+
+/* Progress Bars */
+progress {
+  width: 100%;
+  height: 1rem;
+  background-color: gray;
+}
+/* aca :: es una pseudoclases y queda el 1er gris de fondo clarito para la barra*/
+progress::-webkit-progress-bar {
+  background-color: gray;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--first-color);
+}
+
+/* ahora vamos con la clases .progress y lo de adentro parrafos y barra  */
+.progress {
+  margin: 1rem auto;
+}
+
+.progress > p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+}
+
+/* utilities clases auxiliares */
+
+/* avatar del carrusel */
+.avatar {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+/* NOMNRE DE CLIENTE EN EL CARRUSEL */
+.text-first-color {
+  color: var(--first-color);
+}
+
+/* este gris es el fondo detras de las cartas de servicios  */
+.bg-gray-light {
+  background-color: var(--gray-light-color);
+}
+.box-shadow-1 {
+  /*--box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.25);
+  lo paso a rem los 4 es paara x - y, valen eso */
+  box-shadow: 0.25rem 0.25rem 1rem rgba(0, 0, 0, 0.25);
+}
+
+.btn {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: inline-block;
+  width: 200px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: var(--first-color);
+}
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(
+    --max-width
+  ); /* todo esto es para el menu en pc y quede centrado */
+}
+
+.gray-scale {
+  filter: grayscale(1);
+}
+
+.none {
+  display: none;
+  /* para que la X´s desaparezca */
+}
+/* clase utilitaria seria section para tener separaciones entre cada sectiones cuando termine su contenido entre c/u para eso sirve
+va en la section acerca=about iniciando y espacio entre contenido y el contenedor a los lados  */
+.section {
+  padding: 2rem 1rem;
+}
+.section-title {
+  border-top: thin solid var(--first-color);
+  border-bottom: thin solid var(--first-color);
+  width: 250px;
+  margin: 2rem auto;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+/* esto es para alinear el inicio donde esta acerca nombre, hab, texto largo, slogan */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+/* estas mediaqueries es por si cambia el tamaño de la pant los text se alinearan de acuerdo al minimo del tamaño 1024px indicado
+La LG es indicarle el tamaño  esto son clases utilitarias (boostramp)*/
+@media screen and (min-width: 1024px) {
+  .full-lg-screen {
+    /*esto para se centre el contenido por pantalla cada uno en su llamado abarcado toda la pantalla*/
+    width: 100%;
+    min-height: 100vh;
+  }
+  .text-lg-center {
+    text-align: center;
+  }
+  .text-lg-left {
+    text-align: left;
+  }
+  .text-lg-right {
+    text-align: right;
+  }
+}
+/* site styles-->
+para la cabecera porque de un sitio a otro puede variar por lo va aca */
+
+.about > article {
+  margin-bottom: 2rem;
+}
+/* el *about=acerca* hay 3 articulos se pone los margenes para que cuando se termine lo que esta adentro
+decir nombre-texlarg-boton cv-img- y habilidades tenga espacio cada en su terminacion del contenido */
+
+.header {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 999; /*? para sea la ultimo que se vea cab de fondo*/
+  padding: 1rem;
+  width: 100%;
+  height: var(--header-height); /*64px*/
+  background-color: var(--second-color);
+}
+
+.header > .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  color: var(--first-color);
+  font-weight: bold;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+/* portafolio de imagenes para TRABAJOS  */
+.portfolio-card {
+  position: relative; /*para que en edo hover se posicione la inf va en absolute y vaya encima de esta la imag de fondo*/
+  width: 100%; /*100%  del contenedor donde se encuentre*/
+  margin: 0 auto; /* aqui sin margenes o sea 0(arriba y abajo) por que van juntas pegadas una de la otra debajo*/
+  display: block; /*aqui es apra que los enlaces vayan en bloque(en inspecion se ve)*/
+}
+.portfolio-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /*para que no se deforme en caso de no ser cuadrada como esta*/
+}
+.portfolio-card-info {
+  /*aqui se pone el lorem y el titulo sobre la imag*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem; /*borde invisible donde esta el proyecto pero solo el lorem se mueve el orillo no se ve */
+  background-color: var(--first-alpha-color);
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
+}
+.portfolio-card:hover .portfolio-card-info {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.portfolio-card-info > div {
+  padding: 1rem;
+  border: thin solid red;
+  width: 100%;
+  height: 100%;
+}
+
+/* esto es para darle estilos a pantalla modal en los trabajos */
+.portfolio-modal {
+  padding: 1rem;
+  max-width: 400px;
+  /*se pone display flex*2 para que el texto e imag vayan siempre hacia la columna la modal y no se deforme si no sea pequeña con los 400px*/
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white-color);
+}
+
+/* esto va para todo lo que esta adentro de la ventana modal */
+.portfolio-modal h3 {
+  border-bottom: medium solid var(--first-color);
+  margin: 1rem auto;
+  padding: 0.5rem 0;
+}
+/* eso es para donde esta cliente fecha tipo y enlance 
+se necesitan 2 columas para sapara la info y sus valores */
+.portfolio-details {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-auto-rows: 2rem;
+  /* este da el valor por defecto las filas (seria la altura) que se generen implicitamente */
+}
+
+.portfolio-details b {
+  color: var(--first-color);
+}
+
+/* para centrar las tarjeticas de los servicios */
+.service-card {
+  margin: 1rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.service-card svg {
+  margin-bottom: 1.25rem;
+  fill: var(--first-color);
+}
+
+/* efectos para las 4 tarjeticas de contacto tel email ubicacion red social 
+empezando por los bordes asi las llame en singular y la altura es la de figma ojo*/
+.contact-card {
+  margin: 1rem auto;
+  padding: 1rem;
+  width: 100%;
+  height: 144px;
+  display: flex; /*alinear*/
+  flex-direction: column; /*aqui alineo donde yo quiero*/
+  justify-content: space-around; /*reparta el espacio sobrante pero desde las orillas*/
+  align-items: center; /*en eje x pasen al centro porque antes de eso estan pegados a la izq los svgs y informacion */
+}
+.contact-card > svg {
+  /* esto para darle color al # que no tenia > =>hijo directo y le arreglo tamaño y altura
+  para que esten los 4 parejos */
+  width: 2rem;
+  height: 2rem;
+  fill: var(--first-color);
+}
+
+/* eso es para pegar la inf al titulo de las cartas */
+.contact-card > small {
+  margin-top: -1rem;
+}
+
+/* ahora a los enlances de youtube etc en la cards de las redes sociales lo voy a separar un poco a c/un
+y eliminarle el enlace que se ve */
+.social-media a {
+  padding: 0 0.5rem;
+  text-decoration: none;
+}
+
+/* ahora el tamaño se los subire a cada icono de redes sociales poca la diferencia */
+.social-media svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* por ultimo el footer */
+.footer {
+  margin-bottom: var(
+    --header-height
+  ); /*esto es para que se ven encima del menu y no lo tape el header si no el footer arriba del menu en el modelo movil-tablet*/
+  padding: 1rem;
+  text-align: center;
+  color: var(--white-color);
+  background-color: var(--third-color);
+}
+
+@media screen and (min-width: 768px) {
+  /*esto es para hacer la grid de la tablet a 2 columnas*/
+  .portfolio > .container {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    /*aqui es al 100%para dividarlas en 2 y sten gadas las imgs */
+  }
+
+  .portfolio .section-title {
+    /*aqui esta para arreglar el titulo trabajos se espanda a 2 columnas y centre bien*/
+    grid-column: span 2;
+  }
+  .portfolio-modal {
+    /* estaba en fila ahora para cambiarlo a columna row para la tablet y 800px para que quepan ambos img y texto */
+    flex-direction: row;
+    max-width: 800px;
+  }
+  .portfolio-info {
+    margin-left: 1rem;
+    /* separa texto de img a los lados estando en columna  */
+    align-self: center;
+    /* aqui solo alinea en eje y para centrar solo el texto cliente fecha etc  */
+  }
+
+  /* aqui vamos hacer las cards se dividan en 2 filas para la tablet */
+  .services > .container {
+    display: grid;
+    grid-template-columns: repeat(2, 45%);
+    justify-content: space-between;
+    align-content: center;
+  }
+  /*aqui esta para arreglar el titulo que te ofece se espanda a 2 columnas y centre bien*/
+  .services .section-title {
+    grid-column: span 2;
+  }
+
+  /* aqui es para pasar cards de contacto a dos columnas
+  se usa el selector cards por que estan todas las 4 ahi ojo */
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(
+      2,
+      48%
+    ); /*el 2 son las columnas y cada columna del 48%*/
+    justify-content: space-between; /* para que haga un cuadriculado con los 4 que sobraron  */
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  /* aca se pone para que la 1era parte se divida en 3 espacios
+  en la clase about se guardan los 3 articulos de contenidoos por eso se app lo de abajo y
+  se centre en la mitad de la pantalla  */
+  .about {
+    display: grid;
+    grid-template-columns: repeat(3, 30%); /* patron sobra 10% */
+    justify-content: space-between;
+    align-content: center;
+  }
+  .header {
+    position: sticky;
+    /* sticky se posiciona y respeta lo que este debajo de el  */
+    top: 0;
+    padding: 0.5rem;
+    height: calc(var(--header-height) - 0.5rem);
+  }
+  /* aqui vamos hacer las cards se dividan en 3 filas para la version pc */
+  .services > .container {
+    grid-template-columns: repeat(3, 30%);
+  }
+  /*aqui esta para arreglar el titulo que te ofece se espanda a 3 columnas y centre bien*/
+  .services .section-title {
+    grid-column: span 3;
+  }
+  /* aqui vamos hacer las imag de trabajo se dividan en 3 filas para la version pc */
+  .portfolio > .container {
+    grid-template-columns: repeat(3, 1fr);
+    /*seria la fraccion mejor repartira el esp proporcionalmente para no tener decimales por dividir 100%/3*/
+  }
+
+  .portfolio .section-title {
+    /*aqui esta para arreglar el titulo trabajos se espanda a 3 columnas y centre bien*/
+    grid-column: span 3;
+  }
+
+  .contact-cards {
+    grid-template-columns: repeat(4, 24%);
+    /*4*24 = 96 y los otros 4 para 100% los destribuye para hacer la separacion entre tarjetas*/
+  }
+
+  /* footer */
+  .footer {
+    margin-bottom: 0; /*esto es para que se ven baje el footer para el modelo de pc*/
+  }
+}
