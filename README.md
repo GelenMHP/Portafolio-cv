@@ -4,4 +4,4 @@ repositorio del proyecto
 
 ## Proyecto
 
--[Landing Page de tipo Portafolio-CV](https://GelenMHP.github.com/youtube-git/Portafolio-cv.git)
+-[Landing page de tipo Portafolio-CV](https://gelenmhp.github.com/youtube-git/Portafolio-cv.git)
