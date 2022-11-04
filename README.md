@@ -1,6 +1,6 @@
-# Taller de maquetación
+# Un taller de maquetación
 
-repositorio del proyecto
+Proyecto terminado
 
 ## Proyecto
 
