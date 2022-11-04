@@ -4,4 +4,4 @@ Proyecto terminado
 
 ## Proyecto
 
--[Landing page de tipo Portafolio-CV](https://GelenMHP.github.com//Portafolio-cv.git)
+- [Landing page de tipo Portafolio-CV](https://GelenMHP.github.com//Portafolio-cv.git)
