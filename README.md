@@ -8,4 +8,8 @@ Proyecto terminado
 
 ## 1 proyecto
 
-- [Landing page es un portafolio-CV](https://GelenMHP.github.io//Portafolio-cv/git)
+- [Landing page es un portafolio-CV](https://gelenmhp.github.io/Portafolio-cv/git)
+
+### intento nuevo
+
+-[Landing page Portafoio-CV](https://gelenmhp.github.io/Portafolio-cv/git)
